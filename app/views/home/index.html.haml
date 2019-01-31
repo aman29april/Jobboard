@@ -1,0 +1,37 @@
+.container
+  %h1 Find your ideal job opportunity here
+  =form_tag "/", method: :get, class: 'form-inline' do
+    .form-group
+      = text_field_tag :q, nil, value: params[:q], class: 'form-control', placeholder: 'eg. Sales Manager', autocomplete: :off
+    .form-group
+      = text_field_tag :loc, nil, value: params[:loc], class: 'form-control', placeholder: 'eg. London', autocomplete: :off
+
+    =submit_tag "Search Jobs", class: "btn btn-primary"
+
+.container
+  -if @results.blank?
+    .alert.alert-info{:role => "alert"}
+      No match found
+
+  -@results.each do |result|
+    .col-md-10
+      .job
+        .job-info
+          .job-title
+            %h4=link_to result.company, job_path(result)
+          .date
+            %a{:href => job_path(result)}
+              %i.fa.fa-clock-o
+              posted at
+              =(result.posted_time)
+          =render partial: "snapshot", locals: {result: result}
+          %a{:href => "#"}
+            %p.description
+              =result.description_teaser
+        .job-company-picture
+          %a.block.clearfix{:href => "#"}
+            =image_tag result.company_image_url, class: 'img intl-company-logo lazy'
+          .mt15
+            %a.btn-saved-job.btn.btn-small.btn-clear.btn-clear-blue.btn-block
+              %i.fa.fa-heart-o
+              Save this job

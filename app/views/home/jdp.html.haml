@@ -1,0 +1,21 @@
+-if @result
+  .job
+    %h2.job-title=@result.job_title
+    %p
+      Posted by
+      %b=@result.company
+    =render partial: "snapshot", locals: {result: @result}
+
+    .bloc.clear
+      #hide-fixed-top.fl-l.fl-n-mobile.no-collapse
+        =link_to "Apply Now", @result.apply_url, class: 'btn btn-primary', role: 'button', target: '_blank'
+        #savejob-show.mt15
+          %a.btn-saved-job.btn.btn-clear.btn-clear-blue.btn-block{:href => "#"}
+            %i.fa.fa-heart-o
+            Save this job
+      .fl-r.fl-n-mobile
+        =image_tag @result.company_image_url, class: 'img intl-company-logo lazy'
+
+    %h4 Job Description
+    %p.job-description
+      = format_desc(@result.job_description)

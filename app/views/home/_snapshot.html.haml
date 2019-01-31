@@ -1,0 +1,17 @@
+.snapshot
+  -if result.city.present?
+    .snapshot-item
+      %i.fa.fa-building-o{:href => '#'}
+        =result.city
+  -if result.state.present?
+    %a.snapshot-item{:href => "#"}
+      %i.fa.fa-map-marker
+      =result.state
+  -if result.pay.present?
+    %a.snapshot-item{:href => "#"}
+      %i.bubble-icon.fa
+      =result.pay
+  -if result.employment_type.present?
+    .snapshot-item
+      %i.fa.fa-suitcase
+      =result.employment_type
